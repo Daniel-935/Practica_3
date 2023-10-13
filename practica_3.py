@@ -36,7 +36,7 @@ def transformPrediction(pred):
 #*Variables para entrenar la red neuronal
 #* learning rate, funcion de perdida, epocas y optimizador para el gradiente descendiente
 learningRate = 0.001
-epochs = 2000
+epochs = 5000
 lossFun = nn.BCELoss()
 
 myNet = NeuralNet(2, 3, 4, 1)
@@ -54,3 +54,6 @@ for i in range(epochs):
     optim.step()
     optim.zero_grad()
 
+#!Hace el testing de la red neuronal
+prediction = myNet(tenInTest)
+print(f"Tensor obtenido:\n\n {transformPrediction(prediction)}\nTensor esperado:\n\n {tenOutTest}")
