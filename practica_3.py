@@ -3,6 +3,7 @@ import torch.nn as nn
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 from mpl import NeuralNet
 
@@ -56,4 +57,23 @@ for i in range(epochs):
 
 #!Hace el testing de la red neuronal
 prediction = myNet(tenInTest)
-print(f"Tensor obtenido:\n\n {transformPrediction(prediction)}\nTensor esperado:\n\n {tenOutTest}")
+
+predictObtenido = transformPrediction(prediction)
+
+#*Grafico para las predicciones correctas
+plt.scatter(
+    tenInTest[predictObtenido.squeeze() == tenOutTest.squeeze()][:, 0],
+    tenInTest[predictObtenido.squeeze() == tenOutTest.squeeze()][:, 1],
+    marker='x',
+    c='g'
+)
+
+#*Grafico para las predicciones incorrectas
+plt.scatter(
+    tenInTest[predictObtenido.squeeze() != tenOutTest.squeeze()][:, 0],
+    tenInTest[predictObtenido.squeeze() != tenOutTest.squeeze()][:, 1],
+    marker='s',
+    c='r'
+)
+
+plt.show()
